@@ -13,28 +13,16 @@ public final class MemStore<T extends Base> implements Store<T> {
 
     @Override
     public boolean replace(String id, T model) {
-         return storage.keySet().stream()
-                 .filter(e -> e.equals(id))
-                 .findFirst()
-                 .map((e) -> storage.replace(e, model))
-                 .isPresent();
+         return storage.replace(id, storage.get(id), model);
     }
 
     @Override
     public boolean delete(String id) {
-        return storage.keySet().stream()
-                .filter(e -> e.equals(id))
-                .findFirst()
-                .map(e -> storage.remove(id, storage.get(id)))
-                .isPresent();
+        return storage.remove(id, storage.get(id));
     }
 
     @Override
     public T findById(String id) {
-        return storage.keySet().stream()
-                .filter(e -> e.equals(id))
-                .findFirst()
-                .map(storage::get)
-                .orElse(null);
+        return storage.getOrDefault(id, null);
     }
 }
