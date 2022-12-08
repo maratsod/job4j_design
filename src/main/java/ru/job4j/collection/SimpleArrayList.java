@@ -3,7 +3,6 @@ package ru.job4j.collection;
 import java.util.*;
 
 public class SimpleArrayList<T> implements SimpleList<T> {
-
     private T[] container;
     private int size;
     private int modCount;
