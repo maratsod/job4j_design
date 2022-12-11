@@ -18,12 +18,11 @@ public class SimpleArrayList<T> implements SimpleList<T> {
         } else {
             container = Arrays.copyOf(container, container.length * 2);
         }
-
     }
 
     @Override
     public void add(T value) {
-        if (container.length - 1 == size || container.length == 0) {
+        if (container.length == size) {
             grow();
         }
         container[size++] = value;
@@ -32,16 +31,14 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public T set(int index, T newValue) {
-        Objects.checkIndex(index, size);
-        T t = container[index];
+        T t = get(index);
         container[index] = newValue;
         return t;
     }
 
     @Override
     public T remove(int index) {
-        Objects.checkIndex(index, size);
-        T t = container[index];
+        T t = get(index);
         System.arraycopy(container, index + 1, container, index, container.length - index - 1);
         container[container.length - 1] = null;
         modCount++;
