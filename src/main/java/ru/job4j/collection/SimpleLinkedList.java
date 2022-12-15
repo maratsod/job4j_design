@@ -31,15 +31,16 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     public E get(int index) {
         Objects.checkIndex(index, size);
         Node<E> node = head;
+        E temp = node.item;
         int count = 0;
         while (count < size) {
             if (count == index) {
-                return node.item;
+                temp = node.item;
             }
             count++;
             node = node.next;
         }
-        return null;
+        return temp;
     }
 
     @Override
