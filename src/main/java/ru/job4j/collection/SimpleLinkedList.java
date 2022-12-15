@@ -13,8 +13,16 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     @Override
     public void add(E value) {
         Node<E> node = new Node<>(value, head);
-        node.next = head;
-        head = node;
+        node.next = null;
+        if (head == null) {
+            head = node;
+        } else {
+            Node<E> temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = node;
+        }
         size++;
         modCount++;
     }
@@ -26,7 +34,7 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
         int count = 0;
         while (count < size) {
             if (count == index) {
-                return node.getItem();
+                return node.item;
             }
             count++;
             node = node.next;
@@ -36,24 +44,25 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
 
     @Override
     public Iterator<E> iterator() {
-        int expectedModCount = modCount;
         return new Iterator<E>() {
+            Node<E> node = head;
+            int expectedModCount = modCount;
             @Override
             public boolean hasNext() {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return head != null;
+                return node != null;
             }
 
             @Override
             public E next() {
-                if (hasNext()) {
-                    Node<E> node = head;
-                    head = head.next;
-                    return node.getItem();
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
                 }
-                return null;
+                E temp = node.item;
+                node = node.next;
+                return temp;
             }
         };
     }
@@ -64,22 +73,6 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
 
         Node(E element, Node<E> next) {
             this.item = element;
-            this.next = next;
-        }
-
-        public E getItem() {
-            return item;
-        }
-
-        public void setItem(E item) {
-            this.item = item;
-        }
-
-        public Node<E> getNext() {
-            return next;
-        }
-
-        public void setNext(Node<E> next) {
             this.next = next;
         }
     }
