@@ -25,7 +25,7 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
         Node<E> node = head;
         int count = 0;
         while (count < size) {
-            if (count == index){
+            if (count == index) {
                 return node.getItem();
             }
             count++;
