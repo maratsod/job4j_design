@@ -45,6 +45,26 @@ class ForwardLinkedTest {
     }
 
     @Test
+    void whenAddFirstThree() {
+        list.add(3);
+        list.add(4);
+        list.addFirst(5);
+        assertThat(list.get(0)).isEqualTo(5);
+        assertThat(list.get(1)).isEqualTo(1);
+        assertThat(list.get(2)).isEqualTo(2);
+        assertThat(list.get(3)).isEqualTo(3);
+        assertThat(list.get(4)).isEqualTo(4);
+    }
+
+    @Test
+    void whenAddFirstTwo() {
+        list.addFirst(2);
+        assertThat(list.get(0)).isEqualTo(2);
+        assertThat(list.get(1)).isEqualTo(1);
+        assertThat(list.get(2)).isEqualTo(2);
+    }
+
+    @Test
     void whenGetFromOutOfBoundThenExceptionThrown() {
         assertThatThrownBy(() -> list.get(2))
                 .isInstanceOf(IndexOutOfBoundsException.class);
