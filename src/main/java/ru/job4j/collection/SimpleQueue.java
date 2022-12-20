@@ -9,11 +9,8 @@ public class SimpleQueue<T> {
     private int inSize = 0;
     private int outSize = 0;
 
-    public boolean isEmpty(int size){
-        return size == 0;
-    }
     public T poll() {
-        if (isEmpty(inSize) && isEmpty(outSize)) {
+        if (inSize == 0 && outSize == 0) {
             throw new NoSuchElementException();
         }
         else if (outSize == 0) {
