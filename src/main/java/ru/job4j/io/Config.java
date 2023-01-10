@@ -17,20 +17,25 @@ public class Config {
     public void load() {
         try (BufferedReader in = new BufferedReader(new FileReader(path))) {
              in.lines()
-                    .filter(e -> !e.startsWith("#") && e.contains("="))
-                    .map(e -> e.split("="))
-                    .forEach(e -> values.put(e[0], e.length > 2
-                            ? e[1].concat("=" + e[2]) : e[1]));
+                     .filter(e -> !e.startsWith("#") && !e.isEmpty())
+                     .filter(this::validate)
+                     .map(e -> e.split("=", 2))
+                     .forEach(e -> values.put(e[0], e[1]));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
     public String value(String key) {
-        if (values.get(key).isEmpty() || values.containsKey("")) {
+        return values.getOrDefault(key, null);
+    }
+
+    private boolean validate(String line) {
+        if (line.startsWith("=") || line.endsWith("=")) {
             throw new IllegalArgumentException();
-        }
-        return values.get(key);
+        } if (!line.contains("=") || line.length() == 1) {
+            throw new IllegalArgumentException();
+        } return true;
     }
 
     @Override

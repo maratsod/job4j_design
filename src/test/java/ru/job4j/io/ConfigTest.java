@@ -21,6 +21,30 @@ class ConfigTest {
     }
 
     @Test
+    void whenPairNoKey() {
+        String path = "./data/no_key.properties";
+        Config config = new Config(path);
+        assertThatThrownBy(config::load)
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void whenPairNoValue() {
+        String path = "./data/no_value.properties";
+        Config config = new Config(path);
+        assertThatThrownBy(config::load)
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void whenOneSymbol() {
+        String path = "./data/one_symbol.properties";
+        Config config = new Config(path);
+        assertThatThrownBy(config::load)
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
     void whenPairWithTwoSymbols() {
         String path = "./data/two_symbols.properties";
         Config config = new Config(path);
