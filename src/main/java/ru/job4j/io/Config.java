@@ -33,9 +33,11 @@ public class Config {
     private boolean validate(String line) {
         if (line.startsWith("=") || line.endsWith("=")) {
             throw new IllegalArgumentException();
-        } if (!line.contains("=") || line.length() == 1) {
+        }
+        if (!line.contains("=") || line.length() == 1) {
             throw new IllegalArgumentException();
-        } return true;
+        }
+        return true;
     }
 
     @Override
