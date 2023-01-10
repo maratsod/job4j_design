@@ -54,4 +54,12 @@ class ConfigTest {
         config.load();
         assertThat(config.value("key")).isEqualTo("value=value");
     }
+
+    @Test
+    void whenPairWithManySymbols() {
+        String path = "./data/many_symbols.properties";
+        Config config = new Config(path);
+        config.load();
+        assertThat(config.value("key")).isEqualTo("value=value=value=value=");
+    }
 }

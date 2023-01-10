@@ -31,11 +31,12 @@ public class Config {
     }
 
     private boolean validate(String line) {
+        String[] rsl = line.split("=", 2);
         if (line.startsWith("=")) {
             throw new IllegalArgumentException(
                     String.format("this line: %s does not contain a key", line));
         }
-        if (line.endsWith("=")) {
+        if (line.endsWith("=") && rsl[1].isEmpty()) {
             throw new IllegalArgumentException(
                     String.format("this line: %s does not contain a value", line));
         }
@@ -43,7 +44,7 @@ public class Config {
             throw new IllegalArgumentException(
                     String.format("this line: %s does not contain a \"=\" symbol", line));
         }
-        if (line.length() == 1) {
+        if (line.indexOf("=") == line.length() - 1) {
             throw new IllegalArgumentException(
                     String.format("this line: %s contains only a \"=\" symbol", line));
         }
