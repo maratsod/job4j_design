@@ -31,11 +31,21 @@ public class Config {
     }
 
     private boolean validate(String line) {
-        if (line.startsWith("=") || line.endsWith("=")) {
-            throw new IllegalArgumentException();
+        if (line.startsWith("=")) {
+            throw new IllegalArgumentException(
+                    String.format("this line: %s does not contain a key", line));
         }
-        if (!line.contains("=") || line.length() == 1) {
-            throw new IllegalArgumentException();
+        if (line.endsWith("=")) {
+            throw new IllegalArgumentException(
+                    String.format("this line: %s does not contain a value", line));
+        }
+        if (!line.contains("=")) {
+            throw new IllegalArgumentException(
+                    String.format("this line: %s does not contain a \"=\" symbol", line));
+        }
+        if (line.length() == 1) {
+            throw new IllegalArgumentException(
+                    String.format("this line: %s contains only a \"=\" symbol", line));
         }
         return true;
     }

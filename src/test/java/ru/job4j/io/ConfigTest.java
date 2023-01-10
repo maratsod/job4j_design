@@ -25,7 +25,8 @@ class ConfigTest {
         String path = "./data/no_key.properties";
         Config config = new Config(path);
         assertThatThrownBy(config::load)
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("key");
     }
 
     @Test
@@ -33,7 +34,8 @@ class ConfigTest {
         String path = "./data/no_value.properties";
         Config config = new Config(path);
         assertThatThrownBy(config::load)
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("value");
     }
 
     @Test
@@ -41,7 +43,8 @@ class ConfigTest {
         String path = "./data/one_symbol.properties";
         Config config = new Config(path);
         assertThatThrownBy(config::load)
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("=");
     }
 
     @Test
