@@ -31,22 +31,17 @@ public class Config {
     }
 
     private boolean validate(String line) {
-        String[] rsl = line.split("=", 2);
-        if (line.startsWith("=")) {
-            throw new IllegalArgumentException(
-                    String.format("this line: %s does not contain a key", line));
-        }
-        if (line.endsWith("=") && rsl[1].isEmpty()) {
-            throw new IllegalArgumentException(
-                    String.format("this line: %s does not contain a value", line));
-        }
         if (!line.contains("=")) {
             throw new IllegalArgumentException(
-                    String.format("this line: %s does not contain a \"=\" symbol", line));
+                    String.format("this line: %s does not contain the \"=\" symbol", line));
         }
         if (line.indexOf("=") == line.length() - 1) {
             throw new IllegalArgumentException(
-                    String.format("this line: %s contains only a \"=\" symbol", line));
+                    String.format("this line: %s does not contain the data", line));
+        }
+        if (line.startsWith("=")) {
+            throw new IllegalArgumentException(
+                    String.format("this line: %s does not contain the key", line));
         }
         return true;
     }

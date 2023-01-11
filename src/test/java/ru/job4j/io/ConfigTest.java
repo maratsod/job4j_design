@@ -35,7 +35,7 @@ class ConfigTest {
         Config config = new Config(path);
         assertThatThrownBy(config::load)
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("value");
+                .hasMessageContaining("data");
     }
 
     @Test
@@ -44,7 +44,7 @@ class ConfigTest {
         Config config = new Config(path);
         assertThatThrownBy(config::load)
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("=");
+                .hasMessageContaining("data");
     }
 
     @Test
