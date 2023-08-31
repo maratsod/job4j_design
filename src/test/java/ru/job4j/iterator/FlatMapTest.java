@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 class FlatMapTest {
+
     @Test
     void whenDiffNext() {
         Iterator<Iterator<Integer>> data = List.of(
